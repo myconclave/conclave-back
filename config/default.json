@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://pokemon:charizard@cluster0.vitem.mongodb.net/jobber?retryWrites=true&w=majority",
+    "jwtSecret":"Sid-Secret_JWT"
+}
