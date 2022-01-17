@@ -1,8 +1,12 @@
 {
   "name": "conclave-back",
   "version": "1.0.0",
-  "description": "My COnclave Backend",
+  "description": "My Conclave Backend",
   "main": "server.js",
+  "engines": {
+    "node": "16.13.1",
+    "npm": "8.1.2"
+  },
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",

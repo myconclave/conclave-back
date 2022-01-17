@@ -12,7 +12,6 @@ eval(
 );
 
 router.get("/:type/:id", (req, res) => {
-  //   console.log(new ObjectID(req.params.id));
   mongoDB.MongoClient.connect(uri, function (error, database) {
     const fileId = mongoose.Types.ObjectId(req.params.id);
     res.set("content-type", "application/pdf");

@@ -27,6 +27,10 @@ const IndividualSchema = mongoose.Schema({
   about: {
     type: String,
   },
+  requests: {
+    type: Array,
+  },
+  connections: { type: Array },
 });
 
 IndividualSchema.index({ name: "text" });

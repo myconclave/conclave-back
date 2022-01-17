@@ -19,65 +19,6 @@ const Individuals = require("../../models/Individuals");
 // @route GET All api/users
 // @desc Get all Users
 // @access Public
-router.get("/:type/:id", async (req, res) => {
-  const currentUserId = req.params.id;
-  const excludeUser = [mongoose.Types.ObjectId(currentUserId)];
-  await Network.findOne({ userId: currentUserId }).then((res) => {
-    res &&
-      res.network.forEach((data) => {
-        excludeUser.push(data);
-      });
-  });
-  if (req.params.type === "individuals") {
-    Individuals.aggregate([
-      {
-        $match: {
-          _id: {
-            $nin: excludeUser,
-          },
-        },
-      },
-      {
-        $lookup: {
-          from: "experiences",
-          localField: "_id",
-          foreignField: "userId",
-          as: "company",
-        },
-      },
-      {
-        $unset: [
-          "password",
-          "email",
-          "permission",
-          "company.startDate",
-          "company.userId",
-          "company.__v",
-        ],
-      },
-    ]).then((individual) => res.json(individual));
-  }
-  if (req.params.type === "companies") {
-    Company.aggregate([
-      {
-        $match: {
-          _id: {
-            $nin: excludeUser,
-          },
-        },
-      },
-      {
-        $unset: ["password", "email", "permission", "jobs"],
-      },
-    ]).then((company) => {
-      company.map((cmp) => {
-        cmp.employees = cmp.employees.length;
-      });
-
-      return res.json(company);
-    });
-  }
-});
 
 // @route POST api/users
 // @desc Register User

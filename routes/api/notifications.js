@@ -1,13 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const Company = require("../../models/Company");
+const _ = require("lodash");
 const Individuals = require("../../models/Individuals");
-const Notifications = require("../../models/Notifications");
 
 const router = express.Router();
 
 router.get("/:id", async (req, res) => {
-  console.log(req.params.id);
+  Individuals.findOne({ _id: req.params.id }).then((result) => {
+    const unSeen = _.filter(result.requests, { seen: false });
+    res.status(200).json(unSeen);
+  });
 });
 
 module.exports = router;
